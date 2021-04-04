@@ -1,17 +1,13 @@
 {
-  "name": "portfolio",
+  "name": "solar-system-exploration",
   "version": "1.0.0",
-  "description": "Tools to help while developing the portfolio",
+  "description": "Tools to help while developing the solar-system-exploration",
   "main": "index.js",
   "scripts": {
     "build": "set NODE_ENV=production webpack --progress --colors --debug --display-chunks",
-    "watch": "webpack --progress --colors --debug --display-chunks --watch",
-    "scss-lint": "stylelint \"**/*.scss\" --formatter verbose",
-    "scss-fix": "stylelint \"**/*.scss\" --fix",
-    "lint": "eslint -c .eslintrc.js --ext .js,.vue ./js",
-    "lint-fix": "eslint -c .eslintrc.js --ext .js,.vue ./js --fix"
+    "watch": "webpack --progress --colors --debug --display-chunks --watch"
   },
-  "author": "picaxel",
+  "author": "saida lachgar",
   "license": "AFL-3.0",
   "devDependencies": {
     "autoprefixer": "^6.7.7",
@@ -30,9 +26,6 @@
     "webpack-sources": "^0.1.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3",
-    "bootstrap": "^5.0.0-beta3",
-    "remixicon": "^2.5.0",
-    "tiny-slider": "^2.9.3"
+    "three": "^0.127.0"
   }
 }

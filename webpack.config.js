@@ -5,12 +5,12 @@
  let config = {
    entry: {
      main: [
-      './_dev/js/script.js',
-      './_dev/css/style.scss'
+      './_dev/script.js',
+      './_dev/style.scss'
     ]
    },
    output: {
-     path: path.resolve(__dirname, './'),
+     path: path.resolve(__dirname, './src'),
      filename: 'script.js',
    },
    module: {
@@ -36,12 +36,12 @@
          }),
        },
        {
-         test: /.(png|woff(2)?|eot|otf|ttf|svg|gif)(\?[a-z0-9=\.]+)?$/,
+         test: /.(png|woff(2)?|eot|otf|ttf|svg|gif|jpg)(\?[a-z0-9=\.]+)?$/,
          use: [
            {
              loader: 'file-loader',
              options: {
-               name: '_dev/images/[hash].[ext]',
+               name: 'images/[hash].[ext]',
              },
            },
          ],

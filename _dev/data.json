@@ -1,0 +1,125 @@
+{
+  "Planets": [
+    {
+      "ID": 1,
+      "name": "Mercury",
+      "image": "2k_mercury",
+      "Gravity": 3.7,
+      "DayHours": 4222.6,
+      "DistanceFromSun": 57.9,
+      "Facts": [
+        "The closest planet to the Sun is only about as wide as the Atlantic Ocean!",
+        "does not have any moons or rings.",
+        "It is the smallest planet.",
+        "Your weight on Mercury would be 38% of your weight on Earth.",
+        "A year on Mercury takes 88 Earth days."
+      ]
+    },
+    {
+      "ID": 2,
+      "name": "Venus",
+      "image": "2k_venus",
+      "Gravity": 8.9,
+      "DayHours": 2802.0,
+      "DistanceFromSun": 108.2,
+      "Facts": [
+        "The hottest planet in the solar system",
+        "has super-powerful winds",
+        "Known as the evening or morning star. Yellow clouds made of sulfur and sulfuric acid cover the entire planet causing light to reflect off the surface"
+      ]
+    },
+    {
+      "ID": 3,
+      "name": "Earth",
+      "image": "2k_earth",
+      "Gravity": 9.8,
+      "DayHours": 24.0,
+      "DistanceFromSun": 149.6,
+      "Facts": [
+        "It atmosphere protects us from meteoroids and radiation from the Sun.",
+        "The Earth’s rotation is gradually slowing.",
+        "It has a powerful magnetic field"
+      ]
+    },
+    {
+      "ID": 4,
+      "name": "Jupiter",
+      "image": "2k_jupiter",
+      "Gravity": 23.1,
+      "DayHours": 9.9,
+      "DistanceFromSun": 778.6,
+      "Facts": [
+        "The largest planet in the solar system.",
+        "It has more than double the mass of all the other planets combined",
+        "It has the shortest day of all the planets",
+        "It has a thin ring system"
+      ]
+    },
+    {
+      "ID": 5,
+      "name": "Mars",
+      "image": "2k_mars",
+      "Gravity": 3.7,
+      "DayHours": 24.7,
+      "DistanceFromSun": 227.9,
+      "Facts": [
+        "The red planet",
+        "The largest peak on the red planet is a volcano called Olympus Mons, which is three times higher than Mount Everest!",
+        "There are signs of liquid water on Mars",
+        "Sunsets on Mars are blue."
+      ]
+    },
+    {
+      "ID": 6,
+      "name": "Saturn",
+      "image": "2k_saturn",
+      "Gravity": 9.0,
+      "DayHours": 10.7,
+      "DistanceFromSun": 1433.5,
+      "Facts": [
+        "the second largest planet and is known for its rings",
+        "It has a hexagonal-shaped storm.",
+        "The flattest planet",
+        "is made mostly of hydrogen",
+        "Saturn has more moons than any other planet"
+      ]
+    },
+    {
+      "ID": 7,
+      "name": "Uranus",
+      "image": "2k_uranus",
+      "Gravity": 8.7,
+      "DayHours": 17.2,
+      "DistanceFromSun": 2872.5,
+      "Facts": [
+        "Uranus turns on its axis once every 17 hours, 14 minutes",
+        "Takes roughly 84 years to orbit once around the Sun!",
+        "Orbits on its side, which means that its seasons are completely different to ours. Summer and winter each take 21 years at the north and south poles!"
+      ]
+    },
+    {
+      "ID": 8,
+      "name": "Neptune",
+      "image": "2k_neptune",
+      "Gravity": 11.0,
+      "DayHours": 16.1,
+      "DistanceFromSun": 4495.1,
+      "Facts": [
+        "It takes like more than 4 hours for light to reach Neptune from the Sun",
+        "It radiates more heat than it gets from the sun.",
+        "Neptune spins on its axis very rapidly."
+      ]
+    },
+    {
+      "ID": 9,
+      "name": "Pluto",
+      "image": "2k_pluto",
+      "Gravity": 0.7,
+      "DayHours": 153.3,
+      "DistanceFromSun": 5906.4,
+      "Facts": [
+        "Declassified as a planet in 2006, but this remains controversial."
+      ]
+    }
+  ]
+}
