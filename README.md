@@ -35,10 +35,15 @@ git clone https://github.com/saidaLachgar/solar-system-exploration.git
 Download Node.js. Run this followed commands:
 
 # Install dependencies (only the first time)
+```html
 npm install
-
+```
 # Build for production in the dist/ directory
+```html
 npm run build
+```
 
 # You can also make webpack listen for changes and compile only what’s needed as you work on your files:
+```html
 npm run watch
+```
