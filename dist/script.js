@@ -2709,7 +2709,7 @@ if (media_query.matches) {
 
             // textures
             var loader = new THREE.TextureLoader();
-            loader.setPath('../_dev/textures/');
+            loader.setPath('https://raw.githubusercontent.com/saidaLachgar/solar-system-exploration/main/_dev/textures/');
             var earthTexture = loader.load('2k_earth.jpg');
             var geometry = new THREE.SphereGeometry(200, 200, 50);
             var material = new THREE.MeshBasicMaterial({ map: earthTexture });
@@ -2849,7 +2849,7 @@ if (media_query.matches) {
                     });
                     document.querySelector(".circular-text").style.transform = "rotate(" + this.getAttribute('data-rotation') + "deg)";
                     var info = this.getAttribute('data-info').split(',');
-                    mesh.material.map.image.src = "../_dev/textures/" + info[1] + ".jpg";
+                    mesh.material.map.image.src = info[1];
                     mesh.material.map.needsUpdate = true;
                     document.querySelector("#fact").innerHTML = info[5];
                     animateValue("DistanceFromSun", info[4]);
