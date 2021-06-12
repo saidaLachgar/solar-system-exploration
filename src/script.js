@@ -2684,7 +2684,9 @@ function LensFlare(){console.error('THREE.LensFlare has been moved to /examples/
 "use strict";
 
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
 var _three = __webpack_require__(0);
 
@@ -2692,100 +2694,172 @@ var THREE = _interopRequireWildcard(_three);
 
 var _threeExamplesJsmControlsOrbitControls = __webpack_require__(3);
 
-// import * as data from './data.json';
+var media_query = window.matchMedia("(min-width: 768px)");
+if (media_query.matches) {
+    var d;
 
-var camera = undefined,
-    scene = undefined,
-    renderer = undefined;
-var mesh = undefined;
+    (function () {
+        var init = function init() {
+            // Canvas
+            var canvas = document.querySelector('canvas.planet');
+            // camera
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = 400;
+            scene = new THREE.Scene();
 
-init();
-animate();
+            // textures
+            var loader = new THREE.TextureLoader();
+            loader.setPath('../_dev/textures/');
+            var earthTexture = loader.load('2k_earth.jpg');
+            var geometry = new THREE.SphereGeometry(200, 200, 50);
+            var material = new THREE.MeshBasicMaterial({ map: earthTexture });
+            mesh = new THREE.Mesh(geometry, material);
 
-function init() {
-    // Canvas
-    var canvas = document.querySelector('canvas.planet');
-    // camera
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 400;
-    scene = new THREE.Scene();
+            scene.add(mesh);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, canvas: canvas });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            planetsText(-90);
+            window.addEventListener('resize', onWindowResize);
 
-    // original
-    // material.map = THREE.ImageUtils.loadTexture('images/earthmap1k.jpg');
-    // //black
-    // material.bumpMap = THREE.ImageUtils.loadTexture('images/earthbump1k.jpg');
-    // material.bumpScale = 0.05;
-    // //white black
-    // material.specularMap = THREE.ImageUtils.loadTexture('images/earthspec1k.jpg')
-    // material.specular = new THREE.Color('grey')
-    // // Cloud Layer
-    // var geometry = new THREE.SphereGeometry(0.51, 32, 32)
-    // var material = new THREE.MeshPhongMaterial({
-    //     map: new THREE.Texture(canvasCloud),
-    //     side: THREE.DoubleSide,
-    //     opacity: 0.8,
-    //     transparent: true,
-    //     depthWrite: false,
-    // });
-    // var cloudMesh = new THREE.Mesh(geometry, material)
-    // earthMesh.add(cloudMesh)
+            var controls = new _threeExamplesJsmControlsOrbitControls.OrbitControls(camera, renderer.domElement);
+            controls.listenToKeyEvents(window); // optional
+            // controls.addEventListener('change', render);
+            controls.enableZoom = false;
+            controls.enablePan = false;
+            controls.rotateSpeed = 0.1;
+        };
 
-    // textures
-    var loader = new THREE.TextureLoader();
-    var earthTexture = loader.load('../_dev/textures/2k_earth.jpg');
-    var geometry = new THREE.SphereGeometry(200, 200, 50);
-    var material = new THREE.MeshBasicMaterial({ map: earthTexture });
-    mesh = new THREE.Mesh(geometry, material);
+        var onWindowResize = function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            planetsText(-90);
+        };
 
-    scene.add(mesh);
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, canvas: canvas });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-    planetsText();
-    window.addEventListener('resize', onWindowResize);
+        var animate = function animate() {
 
-    var controls = new _threeExamplesJsmControlsOrbitControls.OrbitControls(camera, renderer.domElement);
-    controls.listenToKeyEvents(window); // optional
-    controls.addEventListener('change', render); // call this only in static scenes (i.e., if there is no animation loop)
-    controls.enableZoom = false;
-    controls.rotateSpeed = 0.1;
-}
+            requestAnimationFrame(animate);
+            mesh.rotation.x += 0.001;
+            mesh.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        };
 
-function onWindowResize() {
+        var render = function render() {
+            renderer.render(scene, camera);
+        };
 
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+        var planetsText = function planetsText(angleoffset) {
+            var numLetters = 60,
+                angleSpan = 184,
+                circSize = [document.querySelector('canvas.planet').height + 100],
+                anglePerChar = angleSpan / numLetters;
 
-    planetsText();
-}
+            for (var i = 0; i < numLetters; i++) {
+                document.querySelectorAll(".circular-text span")[i].style.cssText = "width: " + circSize + "px;height: " + circSize + "px;transform: rotate(" + [angleoffset + anglePerChar * i] + "deg) translatex(" + [circSize / 2] + "px);";
+            }
+            document.querySelector(".circular-text").style.cssText = "width: " + circSize + "px;height: " + circSize + "px;";
+            document.querySelector(".circle").style.cssText = "width: " + [circSize - 50] + "px;height: " + [circSize - 50] + "px;";
+        };
 
-function animate() {
+        var getCurrentRotation = function getCurrentRotation(elid) {
+            var el = document.querySelector(elid);
+            var st = window.getComputedStyle(el, null);
+            var tr = st.getPropertyValue("-webkit-transform") || st.getPropertyValue("-moz-transform") || st.getPropertyValue("-ms-transform") || st.getPropertyValue("-o-transform") || st.getPropertyValue("transform") || "fail...";
+            if (tr !== "none") {
+                var values = tr.split('(')[1];
+                values = values.split(')')[0];
+                values = values.split(',');
+                var a = values[0],
+                    b = values[1],
+                    radians = Math.atan2(b, a),
+                    angle = Math.round(radians * (180 / Math.PI));
+            } else {
+                var angle = 0;
+            }
+            return angle;
+        };
 
-    requestAnimationFrame(animate);
+        var animateValue = function animateValue(elmID, end) {
+            var obj = document.getElementById(elmID),
+                start = Number(obj.innerHTML);
+            var startTimestamp = null;
+            var step = function step(timestamp) {
+                if (!startTimestamp) startTimestamp = timestamp;
+                var progress = Math.min((timestamp - startTimestamp) / 1000, 1);
+                var value = progress * (Number(end) - start) + start;
+                obj.innerHTML = value.toFixed(1);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
 
-    mesh.rotation.x += 0.001;
-    mesh.rotation.y += 0.001;
+        var animateText = function animateText(word) {
+            var timeout = document.querySelectorAll('#name > div').length * 100;
+            [].forEach.call(document.querySelectorAll('#name > div'), function (letter) {
+                letter.style.transform = "";
+                letter.classList.add("hide");
+            });
+            setTimeout(function () {
+                document.getElementById('name').innerHTML = "";
+                for (var l = 0; l <= word.length; l++) {
+                    var e = document.createElement('div');
+                    e.innerHTML = word.charAt(l);
+                    e.style.transform = "rotateX(90deg)";
+                    e.classList.add("show");
+                    document.getElementById('name').appendChild(e);
+                }
+            }, timeout);
+        };
 
-    renderer.render(scene, camera);
-}
+        // If media query matches
+        var camera = undefined,
+            scene = undefined,
+            renderer = undefined;
+        var mesh = undefined;
 
-function render() {
-    renderer.render(scene, camera);
-}
+        init();
+        animate();
 
-function planetsText() {
-    var numLetters = 60,
-        angleSpan = 180,
-        angleoffset = -90,
-        circSize = [document.querySelector('canvas.planet').height + 100],
-        anglePerChar = angleSpan / numLetters;
+        d = 0;
 
-    for (var i = 0; i < numLetters; i++) {
-        document.querySelectorAll(".circular-text span")[i].style.cssText = "width: " + circSize + "px;height: " + circSize + "px;transform: rotate(" + [angleoffset + anglePerChar * i] + "deg) translatex(" + [circSize / 2] + "px);";
-    }
-    document.querySelector(".circular-text").style.cssText = "width: " + circSize + "px;height: " + circSize + "px;";
+        fetch('../_dev/data.json').then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            data.Planets.forEach(function (e) {
+                for (var i = d; i < [d + e.name.length + 1]; i++) {
+                    document.querySelector(".char" + i).setAttribute('data-rotation', getCurrentRotation(".char" + [d + Math.floor(e.name.length / 2)]) * -1);
+                    document.querySelector(".char" + i).setAttribute('data-info', [e.name, e.image, e.Gravity, e.DayHours, e.DistanceFromSun, e.Fact]);
+                }
+                d += e.name.length + 1;
+            });
+        });
+
+        [].concat(_toConsumableArray(document.querySelectorAll('[class*=char]'))).forEach(function (item) {
+            item.addEventListener('click', function () {
+                if (getCurrentRotation(".circular-text") != this.getAttribute('data-rotation')) {
+                    [].concat(_toConsumableArray(document.querySelectorAll('[data-rotation]'))).forEach(function (item) {
+                        item.style.opacity = 0.5;
+                    });
+                    [].concat(_toConsumableArray(document.querySelectorAll('[data-rotation="' + this.getAttribute('data-rotation') + '"]'))).forEach(function (item) {
+                        item.style.opacity = 1;
+                    });
+                    document.querySelector(".circular-text").style.transform = "rotate(" + this.getAttribute('data-rotation') + "deg)";
+                    var info = this.getAttribute('data-info').split(',');
+                    mesh.material.map.image.src = "../_dev/textures/" + info[1] + ".jpg";
+                    mesh.material.map.needsUpdate = true;
+                    document.querySelector("#fact").innerHTML = info[5];
+                    animateValue("DistanceFromSun", info[4]);
+                    animateValue("Gravity", info[2]);
+                    animateValue("DayHours", info[3]);
+                    animateText(info[0]);
+                }
+            });
+        });
+    })();
 }
 
 /***/ }),

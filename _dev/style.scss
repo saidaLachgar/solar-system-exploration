@@ -10,6 +10,16 @@ $font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
     scroll-behavior: smooth;
   }
 }
+@media (max-width: 768px) {
+  body, html{
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+  body *:not(.no-support):not(.no-support *){
+    display: none !important;
+  }
+}
 body {
   margin: 0;
   font-size: 1rem;
@@ -22,15 +32,13 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
+  
 }
 canvas {
   will-change: transform;
   transform: translate(0, 50%);
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.9) 60%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  clip-path: circle(51vh at center);
+  cursor: grab;
 }
 header {
   position: absolute;
@@ -39,18 +47,57 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 15px 3%;
+  padding: 15px;
   user-select: none;
 }
 nav {
   a {
     text-decoration: none;
-    outline: none;
     color: #fff;
-    padding: 0 5px;
     font-size: 12px;
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    &,
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+    &::before,
+    &::after {
+      display: inline-block;
+      opacity: 0;
+      -webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+      -moz-transition: -moz-transform 0.3s, opacity 0.2s;
+      transition: transform 0.3s, opacity 0.2s;
+    }
+    &::before {
+      margin-right: 10px;
+      content: "[";
+      -webkit-transform: translateX(20px);
+      -moz-transform: translateX(20px);
+      transform: translateX(20px);
+    }
+    &::after {
+      margin-left: 10px;
+      content: "]";
+      -webkit-transform: translateX(-20px);
+      -moz-transform: translateX(-20px);
+      transform: translateX(-20px);
+    }
+    &:hover::before,
+    &:hover::after,
+    &:focus::before,
+    &:focus::after {
+      opacity: 1;
+      -webkit-transform: translateX(0px);
+      -moz-transform: translateX(0px);
+      transform: translateX(0px);
+    }
   }
 }
+
 .planets-text {
   width: 100%;
   height: 50%;
@@ -61,27 +108,6 @@ nav {
   margin: auto;
   display: flex;
   justify-content: center;
-}
-
-.circular-text {
-  float: left;
-  border-radius: 50%;
-  line-height: 1em;
-  text-transform: uppercase;
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    height: 90%;
-    width: 90%;
-    border-radius: 50%;
-    left: 50%;
-    will-change: transform;
-
-    transform: translate(-50%, 0);
-    bottom: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-  }
   &::after {
     content: "";
     width: 10px;
@@ -91,18 +117,40 @@ nav {
     border-radius: 50%;
     left: 50%;
     will-change: transform;
-    transform: translate(-50%, 28px);
+    // transform: translate(-50%, 28px);
+    top: 24px;
   }
+}
+
+.circular-text {
+  float: left;
+  overflow: hidden;
+  border-radius: 50%;
+  line-height: 1em;
+  text-transform: uppercase;
+  position: relative;
+  transition: transform 0.3s linear;
   span {
     position: absolute;
     font-size: 11px;
+    cursor: pointer;
+    user-select: none;
+    &:not(.char27):not(.char28):not(.char29):not(.char30):not(.char31) {
+      opacity: 0.5;
+    }
   }
 }
+.circle {
+  border-radius: 50%;
+  border: 1px solid hsla(0, 0%, 100%, 0.4);
+  top: 28px;
+  position: absolute;
+}
 .planets-data {
-    z-index: 1;
+  z-index: 1;
   position: absolute;
   top: 15%;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0 3%;
   width: 100%;
   &,
@@ -112,9 +160,13 @@ nav {
   small {
     opacity: 0.7;
   }
-  span {
+  span,
+  span div {
     font-size: 3rem;
     line-height: 1.6;
+    font-style: normal;
+    display: inline-block;
+    will-change: transform;
   }
   .info {
     flex-direction: column;
@@ -124,7 +176,7 @@ nav {
     }
   }
   .chiffres {
-    width: 45%;
+    width: 35%;
     justify-content: space-between;
     span {
       font-weight: 300;
@@ -138,9 +190,9 @@ nav {
 
 .references {
   position: absolute;
-  left: 3%;
+  left: 15px;
   font-size: 12px;
-  bottom: 3%;
+  bottom: 20px;
   z-index: 1;
   max-width: 220px;
   &,
@@ -149,20 +201,94 @@ nav {
     opacity: 0.4;
   }
 }
-.createdby {
+.credits {
   position: absolute;
-  right: 2%;
-  bottom: 65px;
+  right: 15px;
+  bottom: 80px;
   transform: rotate(90deg);
   transform-origin: 100% 0%;
+  z-index: 1000;
+  &,
+  a {
+    color: #fff !important;
+    opacity: 0.4;
+    text-decoration: none;
+  }
   &:after {
     content: "";
     display: block;
-    width: 90px;
+    width: 110px;
     height: 1px;
     background: #fff;
     bottom: 7px;
     position: absolute;
     right: -66%;
+  }
+}
+.show,
+.hide {
+  transform-origin: bottom;
+  transform-style: preserve-3d;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  @for $i from 1 to 9 {
+    &:nth-of-type(#{$i}) {
+      animation-delay: $i * 0.1s;
+    }
+  }
+}
+.show {
+  animation-name: show;
+  transform: rotateX(90deg);
+}
+.hide {
+  animation-name: hide;
+  transform: rotateX(0deg);
+}
+
+@keyframes show {
+  to {
+    transform: rotateX(0);
+  }
+}
+@keyframes hide {
+  to {
+    transform: rotateX(90deg);
+  }
+}
+
+.no-support {
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    position: fixed;
+    z-index: 1000;
+    text-align: center;
+    padding: 0 15px;
+    top: 0;
+    left: 0;
+    svg {
+      margin: -5rem auto 0.5rem !important;
+      width: 90px;
+      height: max-content;
+    }
+    p:first-of-type {
+      font-size: 20px;
+      margin: 5px;
+      font-weight: bold;
+    }
+    p:nth-child(3) {
+      font-size: 14px;
+      max-width: 390px;
+      opacity: 0.8;
+      margin: 0 auto;
+      line-height: 1.2;
+    }
   }
 }

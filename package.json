@@ -4,7 +4,7 @@
   "description": "Tools to help while developing the solar-system-exploration",
   "main": "index.js",
   "scripts": {
-    "build": "set NODE_ENV=production webpack --progress --colors --debug --display-chunks",
+    "build": "webpack --progress --colors --debug --display-chunks",
     "watch": "webpack --progress --colors --debug --display-chunks --watch"
   },
   "author": "saida lachgar",
