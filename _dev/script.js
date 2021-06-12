@@ -75,7 +75,7 @@ if (media_query.matches) { // If media query matches
     }
 
     var d = 0;
-    fetch('../_dev/data.json')
+    fetch('https://api.npoint.io/6901d8e62e6ede225bea')
     .then(response => response.json())
     .then(data => {
         data.Planets.forEach(function(e) {
