@@ -20,7 +20,7 @@ if (media_query.matches) { // If media query matches
         // textures
         const loader = new THREE.TextureLoader()
         loader.setPath( 'https://raw.githubusercontent.com/saidaLachgar/solar-system-exploration/main/_dev/textures/' )
-        const earthTexture = loader.load('2k_earth');
+        const earthTexture = loader.load('2k_earth.jpg');
         const geometry = new THREE.SphereGeometry(200, 200, 50);
         const material = new THREE.MeshBasicMaterial({ map: earthTexture });
         mesh = new THREE.Mesh(geometry, material);    
