@@ -20,7 +20,7 @@ if (media_query.matches) { // If media query matches
         // textures
         const loader = new THREE.TextureLoader()
         loader.setPath( 'https://raw.githubusercontent.com/saidaLachgar/solar-system-exploration/main/_dev/textures/' )
-        const earthTexture = loader.load('2k_earth.jpg');
+        const earthTexture = loader.load('2k_earth');
         const geometry = new THREE.SphereGeometry(200, 200, 50);
         const material = new THREE.MeshBasicMaterial({ map: earthTexture });
         mesh = new THREE.Mesh(geometry, material);    
@@ -38,7 +38,10 @@ if (media_query.matches) { // If media query matches
         // controls.addEventListener('change', render); 
         controls.enableZoom = false;
         controls.enablePan = false;
-        controls.rotateSpeed = 0.1;
+        controls.rotateSpeed = 0.2;
+        controls.enableDamping = true;
+        // controls.minDistance = 5;
+        // controls.maxDistance = 100;
     }
 
     function onWindowResize() {
@@ -51,7 +54,7 @@ if (media_query.matches) { // If media query matches
     function animate() {
 
         requestAnimationFrame(animate);
-        mesh.rotation.x += 0.001;
+        // mesh.rotation.x += 0.001;
         mesh.rotation.y += 0.001;
         renderer.render(scene, camera);
 
@@ -75,7 +78,7 @@ if (media_query.matches) { // If media query matches
     }
 
     var d = 0;
-    fetch('https://api.npoint.io/3dfe2069dda0ec867d2a')
+    fetch('https://api.npoint.io/0023ef5104919f501245')
     .then(response => response.json())
     .then(data => {
         data.Planets.forEach(function(e) {

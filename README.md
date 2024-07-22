@@ -1,3 +1,5 @@
+node 14 - py2 - npm
+
 <p align="center">
     <img width="100" src="https://github.com/saidaLachgar/solar-system-exploration/blob/main/dist/images/icon.png" alt="Three.js Solar Exploration">
 </p>
@@ -8,19 +10,17 @@
   <a href="https://www.npmjs.com/package/three" rel="nofollow"><img src="https://camo.githubusercontent.com/f66fa08048e7297bddab40ff398130fccfba137034eb3c72927cefc059d4cc5d/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f7468726565" alt="NPM Package"></a>
 </p>
 
-
 ## Content
 
 - [Introduction](#introduction)
 - [Feature Review](#feature-review)
 - [Setup](#setup)
 
-
 ## Introduction
 
-* This is a web planetary fact sheet, you can explore the solar system by clicking on the planets title to see some resource data of them.<br>
-* The project is built using Three.js <br>
-* The project can been seen from the link below [Click Me](https://planetary-facts.netlify.app)
+- This is a web planetary fact sheet, you can explore the solar system by clicking on the planets title to see some resource data of them.<br>
+- The project is built using Three.js <br>
+- The project can been seen from the link below [Click Me](https://planetary-facts.netlify.app)
 
 ## Feature Review
 
@@ -28,22 +28,28 @@
 
 ## Setup
 
- Clone the repository
+Clone the repository
+
 ```html
 git clone https://github.com/saidaLachgar/solar-system-exploration.git
 ```
+
 Download Node.js. Run this followed commands:
 
 ## Install dependencies (only the first time)
+
 ```html
 npm install
 ```
+
 ## Build for production in the dist/ directory
+
 ```html
 npm run build
 ```
 
 ## You can also make webpack listen for changes and compile only what’s needed as you work on your files:
+
 ```html
 npm run watch
 ```
